@@ -1,3 +1,6 @@
+import 'package:data_guardian/download_data_screen.dart';
+import 'package:data_guardian/remote_control_screen.dart';
+import 'package:data_guardian/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'home_screen.dart'; // Ensure you import the HomeScreen
 import 'about_screen.dart';
@@ -18,8 +21,10 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => HomeScreen(),
-          '/about': (context) =>
-              AboutScreen(), //Defining the route for the about screen.
+          '/downloadData': (context) => DownloadDataScreen(),
+          '/remoteControl': (context) => RemoteControlScreen(),
+          '/settings': (context) => SettingsScreen(),//defining the route for the settings screen
+          '/about': (context) => AboutScreen(), //Defining the route for the about screen.
         });
   }
 }
