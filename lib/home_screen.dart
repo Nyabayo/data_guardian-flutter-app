@@ -23,52 +23,52 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            ListTile(
-              leading: Icon(Icons.cloud_download),
-              title: Text('Download Data'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/downloadData');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.control_camera),
-              title: Text('Remote Control'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/remoteControl');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/settings');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.info),
-              title: Text('About'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/about');
-              },
-            ),
+            _createDrawerItem(Icons.cloud_download, 'Download Data', '/downloadData', context),
+            _createDrawerItem(Icons.control_camera, 'Remote Control', '/remoteControl', context),
+            _createDrawerItem(Icons.settings, 'Settings', '/settings', context),
+            _createDrawerItem(Icons.info, 'About', '/about', context),
           ],
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('Welcome to Data Guardian',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-            Text('Your privacy, our priority.', style: TextStyle(fontSize: 20)),
-            SizedBox(height: 50),
-          ],
-        ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Image.asset(
+            'images/spying.jpg',  // Using forward slashes as recommended.
+            fit: BoxFit.cover,
+          ),
+          Center(
+            child: Container(
+              padding: EdgeInsets.all(16.0),
+              color: Colors.black54,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text(
+                    'Welcome to Data Guardian',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                  Text(
+                    'Your privacy, our priority.',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
+    );
+  }
+
+  ListTile _createDrawerItem(IconData icon, String title, String routeName, BuildContext context) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      onTap: () {
+        Navigator.pop(context);
+        Navigator.pushNamed(context, routeName);
+      },
     );
   }
 }
