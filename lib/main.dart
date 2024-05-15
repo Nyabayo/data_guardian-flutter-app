@@ -15,16 +15,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Data Guardian',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.green,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
+        debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: {
           '/': (context) => HomeScreen(),
           '/downloadData': (context) => DownloadDataScreen(),
           '/remoteControl': (context) => RemoteControlScreen(),
-          '/settings': (context) => SettingsScreen(),//defining the route for the settings screen
-          '/about': (context) => AboutScreen(), //Defining the route for the about screen.
+          '/settings': (context) =>
+              SettingsScreen(), //defining the route for the settings screen
+          '/about': (context) =>
+              AboutScreen(), //Defining the route for the about screen.
         });
   }
 }
