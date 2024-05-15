@@ -33,7 +33,7 @@ flutter:
   # Assets section for including images, config files, or other data files in the project
   assets:
     - images/spying.jpg  # Includes an image asset for use within the app
-
+    - images\remote.jpg
   # Fonts section for adding custom fonts
   # fonts:
   #   - family: Schyler  # Font family name

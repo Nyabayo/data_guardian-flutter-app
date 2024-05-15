@@ -7,105 +7,101 @@ class RemoteControlScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Remote Control'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('Interface to remotely control your device',
-                textAlign: TextAlign.center),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Placeholder for the method to lock the device
-                // This could call a service that sends a command to the device to lock it
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: Text("Lock Device"),
-                    content: Text("Device locked successfully."),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: Text("OK"),
-                      ),
-                    ],
+      body: Stack(
+        fit: StackFit
+            .expand, // Ensures the stack covers the entire body of the scaffold.
+        children: <Widget>[
+          // Background image
+          Image.asset(
+            'images/remote.jpg', // Ensure the image path is correct in your assets.
+            fit: BoxFit.cover, // Ensures the image covers the entire screen.
+          ),
+          // Scrollable column to ensure the UI is scrollable when content exceeds the screen size.
+          SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.only(
+                  bottom: 50), // Adds padding at the bottom for better spacing.
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment
+                    .end, // Aligns children to the bottom of the container.
+                children: <Widget>[
+                  _buildActionButton(
+                    context,
+                    'Lock Device',
+                    'Device locked successfully.',
+                    Icons.lock,
                   ),
-                );
-              },
-              child: Text('Lock Device'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Placeholder for the method to locate the device
-                // This might involve integration with a GPS service or similar functionality
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: Text("Locate Device"),
-                    content: Text("Device location sent to your email."),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: Text("OK"),
-                      ),
-                    ],
+                  _buildActionButton(
+                    context,
+                    'Locate Device',
+                    'Device location sent to your email.',
+                    Icons.location_searching,
                   ),
-                );
-              },
-              child: Text('Locate Device'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Placeholder for the method to wipe the device data
-                // This feature would need secure verification before action is taken
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: Text("Wipe Device Data"),
-                    content: Text(
-                        "Are you sure you want to wipe all data on your device? This action cannot be undone."),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          // Add actual wipe functionality here
-                          Navigator.of(context).pop();
-                        },
-                        child: Text("Wipe Data"),
-                      ),
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: Text("Cancel"),
-                      ),
-                    ],
+                  _buildActionButton(
+                    context,
+                    'Wipe Device Data',
+                    'Are you sure you want to wipe all data on your device? This action cannot be undone.',
+                    Icons.delete_forever,
+                    isDestructiveAction: true,
                   ),
-                );
-              },
-              child: Text('Wipe Device Data'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Placeholder for ringing the device
-                // Typically this might signal the device to make a loud noise, helping in locating it
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: Text("Ring Device"),
-                    content: Text(
-                        "Your device will start ringing. Use this feature to locate your device nearby."),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: Text("OK"),
-                      ),
-                    ],
+                  _buildActionButton(
+                    context,
+                    'Ring Device',
+                    'Your device will start ringing. Use this feature to locate your device nearby.',
+                    Icons.notifications_active,
                   ),
-                );
-              },
-              child: Text('Ring Device'),
+                ],
+              ),
             ),
-          ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActionButton(
+      BuildContext context, String title, String content, IconData icon,
+      {bool isDestructiveAction = false}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+          vertical: 8.0), // Adds vertical spacing between buttons.
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          foregroundColor: Colors.white,
+          backgroundColor: isDestructiveAction
+              ? Colors.red
+              : Theme.of(context).primaryColor, // Text color.
+          minimumSize: Size(double.infinity,
+              50), // Makes the button stretch to full width and sets a minimum height.
         ),
+        onPressed: () =>
+            _showDialog(context, title, content, isDestructiveAction),
+        child: Text(title),
+      ),
+    );
+  }
+
+  void _showDialog(BuildContext context, String title, String content,
+      bool isDestructiveAction) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(content),
+        actions: <Widget>[
+          if (isDestructiveAction)
+            TextButton(
+              onPressed: () {
+                // TODO: Implement the actual destructive action here.
+                Navigator.of(context).pop();
+              },
+              child: Text("Confirm"),
+            ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(isDestructiveAction ? "Cancel" : "OK"),
+          ),
+        ],
       ),
     );
   }
